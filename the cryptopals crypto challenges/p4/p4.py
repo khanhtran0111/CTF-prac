@@ -45,7 +45,8 @@ def decrypt_xor_cipher(hex_string):
     return best_key, best_result
 
 # Hex-encoded string to decrypt
-hex_string = "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736"
+with open('D:/Coding/Practice CTF/CTF-prac/the cryptopals crypto challenges/p4/p4.txt', 'r') as file:
+    hex_string = file.read()
 
 # Decrypt the message
 key, message = decrypt_xor_cipher(hex_string)
