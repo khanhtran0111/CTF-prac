@@ -1,4 +1,4 @@
-#Solution
+# Solution
 
 Nếu quan sát kĩ, thì ta có thể thấy xâu ban đầu được cho sẽ chỉ gồm các kí tự thường và chữ số (a->z và 0->9)
 => Khả năng lớn sẽ liên quan đến mã hóa Hex.
