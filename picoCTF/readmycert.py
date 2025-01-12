@@ -1,6 +1,6 @@
 from OpenSSL import crypto
 
-csr_file_path = 'D:/Coding/CTF-prac/picoCTF/readmycert.csr'
+csr_file_path = '/home/khanhtran/Documents/coding/python/CTF-prac/picoCTF/readmycert.csr'
 
 with open(csr_file_path, 'r') as csr_file:
     csr_data = csr_file.read()
