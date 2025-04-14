@@ -1,36 +1,30 @@
-# Đề bài: là cho một chuỗi, và 1 cái đèn để hiện các chữ (ảnh minh hoạ)
-# Để hiện các chữ, cần phải bật các bit tương ứng để hiện đúng chữ đó
-# => Mã hoá chữ đó theo dạng bật/tắt các bit 
+segment_map = {
+    'A': 0, 'B': 1, 'C': 2, 'D': 3,
+    'E': 4, 'F': 5, 'G': 6, 'H': 7,
+    'I': 8, 'J': 9, 'K': 10, 'L': 11,
+    'M': 12, 'N': 13
+}
 
-# Theo như ảnh, ta có:
+char_to_segments = {
+    'Z': ['A', 'L', 'M', 'D'],
+    'I': ['A', 'I', 'J', 'D'],
+}
 
-# Chữ cái || bit 
-# A || 0
-# B || 1
-# C || 2
-# D || 3
-# E || 4
-# F || 5
-# G || 6
-# H || 7
-# I || 8
-# J || 9
-# K || 10
-# L || 11
-# M || 12
-# N || 13
+def encode_character(ch):
+    """Trả về chuỗi bit biểu diễn ký tự được mã hoá"""
+    bits = [0] * 14
+    segments = char_to_segments.get(ch.upper(), [])
+    for seg in segments:
+        bit_index = segment_map[seg]
+        bits[13 - bit_index] = 1 
+    return ''.join(map(str, bits))
 
-# ví dụ:
-# chữ Z: cần phải bật các bit: A, L, M, D <=> bật các bit 0, 11, 12, 3
+def encode_string(s):
+    """Mã hoá cả chuỗi thành danh sách các chuỗi bit"""
+    return [encode_character(ch) for ch in s]
 
-# Ta có: 
-# 13 12 11 10 9 8 7 6 5 4 3 2 1 0
-#  0  1  1  0 0 0 0 0 0 0 0 0 0 1
+input_str = "ZI"
+encoded = encode_string(input_str)
 
-# => Z có dạng mã hoá là : 01100000000001
-#  Tương tự, ta có chữ I: cần phải bật các bit: A, I, J, D <=> bật các bit 0, 8, 9, 3
-# Ta có: 
-# 13 12 11 10 9 8 7 6 5 4 3 2 1 0
-#  0  0  0  0 1 1 0 0 0 0 1 0 0 1
-
-# => I có dạng mã hoá là: 00001100001001
+for ch, code in zip(input_str, encoded):
+    print(f"{ch} => {code}")
