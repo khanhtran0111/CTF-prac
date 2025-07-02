@@ -16,3 +16,4 @@ for char in chars:
   prev = cur
 
 sys.stdout.write(out)
+  
