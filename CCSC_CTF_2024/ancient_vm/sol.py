@@ -1,6 +1,5 @@
 from z3 import *
 
-# Given constraints from the program output
 constraints = []
 with open("output.txt", "r") as f:
     results = f.read().strip().split(" ")
@@ -18,21 +17,14 @@ while idx < len(program):
     s = program[idx + 3]
     idx += 4
     args = [op, idx1, idx2, s]
-    # print(args)
     if op == "h":
         args.append(program[idx])
         idx += 1
     args.append(int(results[res_idx]))
     res_idx += 1
     constraints.append(args)
-
-# Create Z3 variables for each character in the flag
 flag_chars = [BitVec(f"flag_{i}", 8) for i in range(46)]
-
-# Create a Z3 solver
 solver = Solver()
-
-# Add constraints based on the given operations
 for op, idx1, idx2, s, *args in constraints:
     c1 = flag_chars[idx1 : idx1 + s]
     c2 = flag_chars[idx2 : idx2 + s]
@@ -47,8 +39,7 @@ for op, idx1, idx2, s, *args in constraints:
     elif op == "h":
         shift_amt = args[0]
         solver.add(
-            sum([(a << shift_amt) + (b >> shift_amt) for a, b in zip(c1, c2)])
-            == args[1]
+            sum([(a << shift_amt) + (b >> shift_amt) for a, b in zip(c1, c2)]) == args[1]
         )
 
 solver.add(flag_chars[0] == ord("C"))
@@ -58,13 +49,8 @@ solver.add(flag_chars[3] == ord("C"))
 solver.add(flag_chars[4] == ord("{"))
 solver.add(flag_chars[-1] == ord("}"))
 
-# print(solver.assertions())
-# Check if the solver is satisfiable
 if solver.check() == sat:
-    # Get the model
     model = solver.model()
-    # print(model)
-    # Extract the values of the flag characters
     flag = [
         c[1]
         for c in sorted(
