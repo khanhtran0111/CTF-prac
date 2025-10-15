@@ -1,0 +1,1 @@
+flag: CCSC{Y0u_g0tt4_b3_c4r3fu11_wh3n_us1n9_f13ld_m4th3m4tics}
